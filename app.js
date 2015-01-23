@@ -138,4 +138,4 @@ var dictators = [{
     }];
 
 
-var React = require('React');
+var React = require('react');
