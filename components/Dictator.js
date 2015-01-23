@@ -4,7 +4,7 @@ var Dictator = React.createClass({
 
     render: function() {
         return (
-            <div>
+            <div className="dictator">
                 <h2>{this.props.dictator.identity.displayName}</h2>
 
                 <img src={this.getImageSrc()} />

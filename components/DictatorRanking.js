@@ -8,7 +8,8 @@ var DictatorRanking = React.createClass({
 
     getInitialState: function() {
         return {
-            'dictators': Immutable.List([])
+            'dictators': Immutable.List([]),
+            'filter': ''
         };
     },
 
@@ -19,7 +20,7 @@ var DictatorRanking = React.createClass({
         $.get('http://diktaattoriporssi.com/api/dictator').then(function(dictators) {
 
             self.setState({
-                'dictators': Immutable.List(dictators)
+                'dictators': Immutable.List(dictators),
             })
         });
 
@@ -29,14 +30,25 @@ var DictatorRanking = React.createClass({
         return (
             <div>
                 <DictatorFilter onChange={this.onChange} />
-                <Dictators dictators={this.state.dictators} />
+                <Dictators dictators={this.getTheDictators()} />
             </div>
         );
     },
 
-    onChange: function(evt) {
-        console.log(evt);
+    getTheDictators: function() {
 
+        var self = this;
+        return this.state.dictators.filter(function(dictator) {
+            return dictator.identity.displayName.indexOf(self.state.filter) !== -1
+        });
+
+    },
+
+    onChange: function(evt) {
+        
+        this.setState({
+            'filter': evt.target.value
+        });
     }
 
 });
